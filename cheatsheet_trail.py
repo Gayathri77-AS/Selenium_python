@@ -1,9 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC 
-from selenium.common.exceptions import TimeoutException
+from selenium.webdriver import ActionChains
 
 driver =  webdriver.Chrome()
 driver.maximize_window()
@@ -21,6 +18,13 @@ try:
     
     submit_button = driver.find_element(By.XPATH,"//button[@id='submit']")
     submit_button.click()
+    driver.implicitly_wait(5)
+
+    driver.get("https://demo.automationtesting.in/Dynamic.html")
+    src = driver.find_element(By.ID, "node")
+    desti = driver.find_element(By.ID, "droparea")
+    action_chains = ActionChains(driver)
+    action_chains.drag_and_drop(src,desti).perform()
     driver.implicitly_wait(5)
 
 except Exception as e:
