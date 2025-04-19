@@ -1,31 +1,25 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver import ActionChains
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.edge.service import Service as EdgeService
 
-driver =  webdriver.Chrome()
-driver.maximize_window()
-driver.get("https://practicetestautomation.com/practice-test-login/")
-driver.implicitly_wait(5)
+chrome_driver_path = "D:\\webdrivers\\chromedriver-win64\\chromedriver.exe"
+chrome_service = ChromeService(chrome_driver_path)
+chrome_driver = webdriver.Chrome(service=chrome_service)
+chrome_driver.get("https://www.google.com")
+print("Chrome Page title is:", chrome_driver.title)
+chrome_driver.quit()
 
-try:
-    uname_textbox = driver.find_element(By.ID,"username")
-    uname_textbox.click()
-    uname_textbox.send_keys("student")
-    
-    pswd_textbox =  driver.find_element(By.ID,"password")
-    pswd_textbox.click()
-    pswd_textbox.send_keys("Password123")
-    
-    submit_button = driver.find_element(By.XPATH,"//button[@id='submit']")
-    submit_button.click()
-    driver.implicitly_wait(5)
+firefox_driver_path = "D:\\webdrivers\\geckodriver-win64\\geckodriver.exe"
+firefox_service = FirefoxService(firefox_driver_path)
+firefox_driver =  webdriver.Firefox(service=firefox_service)
+firefox_driver.get("https://www.google.com")
+print("Firefox Page title is:", firefox_driver.title)
+firefox_driver.quit()
 
-    driver.get("https://demo.automationtesting.in/Dynamic.html")
-    src = driver.find_element(By.ID, "node")
-    desti = driver.find_element(By.ID, "droparea")
-    action_chains = ActionChains(driver)
-    action_chains.drag_and_drop(src,desti).perform()
-    driver.implicitly_wait(5)
-
-except Exception as e:
-    print("Field not Found ",e)
+edge_driver_path = "D:\\webdrivers\\edgedriver-win64\\msedgedriver.exe"
+edge_service = EdgeService(edge_driver_path)
+edge_driver =  webdriver.Edge(service=edge_service)
+edge_driver.get("https://www.google.com")
+print("Edge Page title is:", edge_driver.title)
+edge_driver.quit()
